@@ -1,0 +1,5 @@
+sysml=http://localhost:8585/oslc4jtdb/services/default/resources/sysml-rdfvocabulary#
+tdb_resources=http://localhost:8585/oslc4jtdb/services/default/resources/
+mbse=http://eclipse.org/MBSE/
+tdb=http://localhost:8585/oslc4jtdb/
+dcterms=http://purl.org/dc/terms/
