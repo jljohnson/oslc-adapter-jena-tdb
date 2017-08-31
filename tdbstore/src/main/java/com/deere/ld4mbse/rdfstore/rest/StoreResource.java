@@ -1,6 +1,6 @@
-package com.deere.ld4mbse.vnsm.rest;
+package com.deere.ld4mbse.rdfstore.rest;
 
-import com.deere.ld4mbse.vnsm.services.RDFManager;
+import com.deere.ld4mbse.rdfstore.services.RDFManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

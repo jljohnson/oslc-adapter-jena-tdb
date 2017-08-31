@@ -1,6 +1,6 @@
-package com.deere.ld4mbse.vnsm.services;
+package com.deere.ld4mbse.rdfstore.services;
 
-import com.deere.ld4mbse.vnsm.model.Environment;
+import com.deere.ld4mbse.rdfstore.model.Environment;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.naming.Context;

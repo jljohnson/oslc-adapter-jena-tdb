@@ -1,4 +1,4 @@
-package com.deere.ld4mbse.vnsm.services;
+package com.deere.ld4mbse.rdfstore.services;
 
 import java.net.URI;
 import javax.enterprise.context.ApplicationScoped;

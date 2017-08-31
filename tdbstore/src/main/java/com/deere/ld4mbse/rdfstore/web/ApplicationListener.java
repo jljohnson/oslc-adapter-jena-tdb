@@ -1,6 +1,6 @@
-package com.deere.ld4mbse.vnsm.web;
+package com.deere.ld4mbse.rdfstore.web;
 
-import com.deere.ld4mbse.vnsm.services.DatasetProducer;
+import com.deere.ld4mbse.rdfstore.services.DatasetProducer;
 import java.io.File;
 import javax.naming.NamingException;
 import javax.servlet.ServletContext;
