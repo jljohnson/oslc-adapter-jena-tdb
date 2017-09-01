@@ -1,4 +1,4 @@
-package com.deere.ld4mbse.rdfstore.services;
+package com.koneksys.ld4mbse.rdfstore.services;
 
 import org.junit.Before;
 

@@ -6,7 +6,7 @@
         </Console>
     </Appenders>
     <Loggers>
-        <logger name="com.deere" level="TRACE" additivity="false">
+        <logger name="com.koneksys" level="TRACE" additivity="false">
             <appender-ref ref="Console" />
         </logger>
         <Root>

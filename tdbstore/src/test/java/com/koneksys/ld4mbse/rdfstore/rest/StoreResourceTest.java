@@ -1,7 +1,7 @@
-package com.deere.ld4mbse.rdfstore.rest;
+package com.koneksys.ld4mbse.rdfstore.rest;
 
-import com.deere.ld4mbse.rdfstore.rest.StoreResource;
-import com.deere.ld4mbse.rdfstore.services.RDFManager;
+import com.koneksys.ld4mbse.rdfstore.rest.GraphResource;
+import com.koneksys.ld4mbse.rdfstore.services.RDFManager;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -135,10 +135,10 @@ public class StoreResourceTest {
 
     @Before
     public void init() {
-        StoreResource resource;
+        GraphResource resource;
         Map<Class<?>, Object> ctx;
         manager = mock(RDFManager.class);
-        resource = new StoreResource(manager);
+        resource = new GraphResource(manager);
         ctx = ResteasyProviderFactory.getContextDataMap();
         dispatcher = MockDispatcherFactory.createDispatcher();
         dispatcher.getRegistry().addSingletonResource(resource);
@@ -151,7 +151,7 @@ public class StoreResourceTest {
 
     @Test
     public void testSet_MissingContentType() throws URISyntaxException {
-        request = MockHttpRequest.post(StoreResource.PATH);
+        request = MockHttpRequest.post(GraphResource.PATH);
         dispatcher.invoke(request, response);
         assertEquals(HttpServletResponse.SC_BAD_REQUEST, response.getStatus());
         assertEquals("Missing Content-Type", response.getContentAsString());
@@ -160,7 +160,7 @@ public class StoreResourceTest {
     @Test
     public void testSet_MissingSlugHeader() throws URISyntaxException {
         when(servletRequest.getContentType()).thenReturn(MediaType.TEXT_PLAIN);
-        request = MockHttpRequest.post(StoreResource.PATH);
+        request = MockHttpRequest.post(GraphResource.PATH);
         dispatcher.invoke(request, response);
         assertEquals(HttpServletResponse.SC_BAD_REQUEST, response.getStatus());
         assertEquals("Missing Slug header", response.getContentAsString());
@@ -171,7 +171,7 @@ public class StoreResourceTest {
         String responseBody = "Invalid MediaType. Use ";
         when(servletRequest.getContentType()).thenReturn(MediaType.TEXT_PLAIN);
         when(servletRequest.getHeader("Slug")).thenReturn("myLoad");
-        request = MockHttpRequest.post(StoreResource.PATH);
+        request = MockHttpRequest.post(GraphResource.PATH);
         dispatcher.invoke(request, response);
         assertEquals(HttpServletResponse.SC_BAD_REQUEST, response.getStatus());
         assertTrue(response.getContentAsString().startsWith(responseBody));
@@ -185,7 +185,7 @@ public class StoreResourceTest {
         when(servletRequest.getContentType()).thenReturn(WebContent.contentTypeTurtle);
         when(servletRequest.getHeader("Slug")).thenReturn("myLoad");
         when(servletRequest.getInputStream()).thenReturn(inputStream);
-        request = MockHttpRequest.post(StoreResource.PATH);
+        request = MockHttpRequest.post(GraphResource.PATH);
         dispatcher.invoke(request, response);
         assertEquals(HttpServletResponse.SC_BAD_REQUEST, response.getStatus());
         System.out.println(response.getContentAsString());
@@ -200,11 +200,11 @@ public class StoreResourceTest {
         when(servletRequest.getHeader("Slug")).thenReturn(slug);
         when(servletRequest.getContentType()).thenReturn(mediaType);
         when(servletRequest.getInputStream()).thenReturn(inputStream);
-        request = MockHttpRequest.post(StoreResource.PATH);
+        request = MockHttpRequest.post(GraphResource.PATH);
         dispatcher.invoke(request, response);
         location = response.getOutputHeaders().getFirst("Location").toString();
         assertEquals(HttpServletResponse.SC_CREATED, response.getStatus());
-        assertEquals("/" + StoreResource.PATH + "/" + slug, location);
+        assertEquals("/" + GraphResource.PATH + "/" + slug, location);
     }
 
     @Test
@@ -224,7 +224,7 @@ public class StoreResourceTest {
 
     @Test
     public void testGet_MissingModel() throws URISyntaxException {
-        request = MockHttpRequest.get(StoreResource.PATH + "/myLoad");
+        request = MockHttpRequest.get(GraphResource.PATH + "/myLoad");
         dispatcher.invoke(request, response);
         assertEquals(HttpServletResponse.SC_NOT_FOUND, response.getStatus());
     }
@@ -233,7 +233,7 @@ public class StoreResourceTest {
     public void testGet_EmptyModel() throws URISyntaxException {
         Model model = ModelFactory.createDefaultModel();
         when(manager.getModel(ArgumentMatchers.<URI>any())).thenReturn(model);
-        request = MockHttpRequest.get(StoreResource.PATH + "/myLoad");
+        request = MockHttpRequest.get(GraphResource.PATH + "/myLoad");
         dispatcher.invoke(request, response);
         assertEquals(HttpServletResponse.SC_NO_CONTENT, response.getStatus());
     }
@@ -246,7 +246,7 @@ public class StoreResourceTest {
         when(manager.getModel(ArgumentMatchers.<URI>any())).thenReturn(model);
         when(servletRequest.getHeader(HttpHeaders.ACCEPT)).thenReturn(mediaType);
         when(servletResponse.getOutputStream()).thenReturn(sos);
-        request = MockHttpRequest.get(StoreResource.PATH + "/myLoad");
+        request = MockHttpRequest.get(GraphResource.PATH + "/myLoad");
         request.accept(mediaType);
         dispatcher.invoke(request, response);
         assertEquals(getModelSerialization(language), output.toString("UTF8"));

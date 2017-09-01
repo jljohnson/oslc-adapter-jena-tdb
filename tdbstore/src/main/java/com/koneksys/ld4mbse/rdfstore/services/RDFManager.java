@@ -1,4 +1,4 @@
-package com.deere.ld4mbse.rdfstore.services;
+package com.koneksys.ld4mbse.rdfstore.services;
 
 import java.net.URI;
 import org.apache.jena.query.Dataset;

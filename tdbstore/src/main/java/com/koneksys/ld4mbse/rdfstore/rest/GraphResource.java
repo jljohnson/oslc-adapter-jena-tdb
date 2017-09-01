@@ -1,6 +1,6 @@
-package com.deere.ld4mbse.rdfstore.rest;
+package com.koneksys.ld4mbse.rdfstore.rest;
 
-import com.deere.ld4mbse.rdfstore.services.RDFManager;
+import com.koneksys.ld4mbse.rdfstore.services.RDFManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -37,8 +37,8 @@ import org.slf4j.LoggerFactory;
  * Manages generic RDF operations.
  * @author rherrera
  */
-@Path(StoreResource.PATH)
-public class StoreResource {
+@Path(GraphResource.PATH)
+public class GraphResource {
     /**
      * Logger of this class.
      */
@@ -50,7 +50,7 @@ public class StoreResource {
     /**
      * The path part of this resource.
      */
-    public static final String PATH = "store";
+    public static final String PATH = "graph";
     /**
      * Static initialization.
      */
@@ -64,7 +64,7 @@ public class StoreResource {
                 MIME_RDF_TYPES.put(language.getContentType().toHeaderString(), language);
             }
         }
-        LOG = LoggerFactory.getLogger(StoreResource.class);
+        LOG = LoggerFactory.getLogger(GraphResource.class);
     }
     /**
      * The {@link RDFManager}.
@@ -75,13 +75,13 @@ public class StoreResource {
      * Constructs an instance specifing the {@link RDFManager}.
      * This constructor is required for testing purposes.
      */
-    StoreResource(RDFManager manager) {
+    GraphResource(RDFManager manager) {
         this.manager = manager;
     }
     /**
      * Constructs a default instance.
      */
-    public StoreResource() {
+    public GraphResource() {
         super();
     }
     /**
@@ -104,7 +104,7 @@ public class StoreResource {
      */
     private Model getModel(InputStream content, String type)
             throws URISyntaxException {
-        URI base = new URI(StoreResource.PATH);
+        URI base = new URI(GraphResource.PATH);
         Lang language = MIME_RDF_TYPES.get(type);
         Model model = ModelFactory.createDefaultModel();
         RDFDataMgr.read(model, content, base.toString(), language);
@@ -133,7 +133,7 @@ public class StoreResource {
                 builder = badRequest("Invalid MediaType. Use " + allowedTypes);
             } else {
                 try {
-                    load = new URI(StoreResource.PATH + "/" + slug);
+                    load = new URI(GraphResource.PATH + "/" + slug);
                     model = getModel(request.getInputStream(), contentType);
                     manager.setModel(model, load);
                     builder = Response.created(load);
@@ -185,7 +185,7 @@ public class StoreResource {
             @PathParam("graph") String graph){
         Model model;
         try {
-            model = manager.getModel(new URI(StoreResource.PATH + "/" + graph));
+            model = manager.getModel(new URI(GraphResource.PATH + "/" + graph));
             if (model == null)
                 return Response.status(Response.Status.NOT_FOUND).build();
             else if (model.isEmpty())

@@ -1,6 +1,6 @@
-package com.deere.ld4mbse.rdfstore.rest;
+package com.koneksys.ld4mbse.rdfstore.rest;
 
-import com.deere.ld4mbse.rdfstore.services.RDFManager;
+import com.koneksys.ld4mbse.rdfstore.services.RDFManager;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
@@ -89,9 +89,9 @@ public class EntityResource {
         String resource;
         URI store = null;
         try {
-            resource = request.getParameter(StoreResource.PATH);
+            resource = request.getParameter(GraphResource.PATH);
             if (resource != null)
-                store = new URI(StoreResource.PATH + "/" + resource);
+                store = new URI(GraphResource.PATH + "/" + resource);
             resource = request.getRequestURL().toString();
             model = manager.getResource(new URI(resource), store);
             if (model == null)

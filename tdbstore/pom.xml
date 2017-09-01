@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.deere.ld4mbse</groupId>
+    <groupId>com.koneksys.ld4mbse</groupId>
     <artifactId>rdfstore</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -27,7 +27,7 @@
         <path.services>rest</path.services>
         <!-- TDB -->
         <tdb.naming.factory>bean/DatasetFactory</tdb.naming.factory>
-        <tdb.location>/tmp/deere</tdb.location>
+        <tdb.location>/tmp/koneksys</tdb.location>
     </properties>
     <dependencies>
         <!-- JEE DEPENDENCIES-->

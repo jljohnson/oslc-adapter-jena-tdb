@@ -6,7 +6,7 @@
         factory="org.jboss.weld.resources.ManagerObjectFactory" />
 
     <Resource name="${tdb.naming.factory}" auth="Container"
-            type="com.deere.ld4mbse.vnsm.services.DatasetProducer$Factory"
+            type="com.koneksys.ld4mbse.rdfstore.services.DatasetProducer$Factory"
             factory="org.apache.naming.factory.BeanFactory"
             location="${tdb.location}" />
 

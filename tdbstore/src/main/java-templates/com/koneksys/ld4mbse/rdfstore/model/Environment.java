@@ -1,4 +1,4 @@
-package com.deere.ld4mbse.rdfstore.model;
+package com.koneksys.ld4mbse.rdfstore.model;
 
 /**
  * Environment properties.

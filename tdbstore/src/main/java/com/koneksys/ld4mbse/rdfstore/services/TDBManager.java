@@ -1,4 +1,4 @@
-package com.deere.ld4mbse.rdfstore.services;
+package com.koneksys.ld4mbse.rdfstore.services;
 
 import java.net.URI;
 import javax.enterprise.context.ApplicationScoped;
@@ -99,7 +99,7 @@ public class TDBManager implements RDFManager {
             if (model == null)
                 source = dataset.getDefaultModel();
             else
-                source = dataset.getNamedModel(uri.toString());
+                source = dataset.getNamedModel(model.toString());
             finding = ResourceFactory.createResource(uri.toString());
             buffer.add(source.query(new SimpleSelector(finding, null, (String)null)));
             dataset.commit();
