@@ -10,6 +10,13 @@ import org.apache.jena.rdf.model.Model;
  */
 public interface RDFManager {
     /**
+     * Determines whether a named model exists into the dataset.
+     * @param model the model identifier.
+     * @return {@code true} if a model with the given uri exists into the
+     * dataset; {@code false} otherwise.
+     */
+    boolean containsModel(URI model);
+    /**
      * Stores a model under a given URI.
      * @param model the model to set.
      * @param uri the model identifier. If {@code null} then the default

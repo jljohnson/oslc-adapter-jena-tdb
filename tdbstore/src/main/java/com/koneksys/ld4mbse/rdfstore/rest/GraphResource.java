@@ -134,9 +134,14 @@ public class GraphResource {
             } else {
                 try {
                     load = new URI(GraphResource.PATH + "/" + slug);
-                    model = getModel(request.getInputStream(), contentType);
-                    manager.setModel(model, load);
-                    builder = Response.created(load);
+                    if (manager.containsModel(load)) {
+                        builder = Response.status(Response.Status.CONFLICT);
+                        builder = builder.entity("Resource already exists.");
+                    } else {
+                        model = getModel(request.getInputStream(), contentType);
+                        manager.setModel(model, load);
+                        builder = Response.created(load);
+                    }
                 } catch (RiotException ex) {
                     builder = badRequest("Invalid syntax: " + ex.getMessage());
                 } catch (Exception ex) {

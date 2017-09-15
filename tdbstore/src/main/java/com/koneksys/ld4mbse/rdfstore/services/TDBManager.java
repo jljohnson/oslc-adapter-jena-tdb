@@ -42,6 +42,25 @@ public class TDBManager implements RDFManager {
     }
 
     @Override
+    public boolean containsModel(URI model) {
+        Lock lock;
+        boolean contains = true;
+        LOG.debug("> ? model @ {}", model);
+        dataset.begin(ReadWrite.READ);
+        lock = dataset.getLock();
+        try {
+            lock.enterCriticalSection(false);
+            contains = dataset.containsNamedModel(model.toString());
+            dataset.commit();
+            LOG.debug("< {} ", contains);
+        } finally {
+            dataset.end();
+            lock.leaveCriticalSection();
+        }
+        return contains;
+    }
+
+    @Override
     public void setModel(Model model, URI uri) {
         Lock lock;
         LOG.debug("> + model @ {}", uri);
