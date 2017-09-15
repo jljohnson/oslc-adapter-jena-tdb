@@ -7,6 +7,7 @@ import org.apache.jena.query.Dataset;
 import org.apache.jena.query.ReadWrite;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.NsIterator;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.rdf.model.SimpleSelector;
@@ -108,7 +109,9 @@ public class TDBManager implements RDFManager {
     public Model getResource(URI uri, URI model) {
         Lock lock;
         Resource finding;
+        String namespace;
         Model buffer, source;
+        NsIterator namespaces;
         LOG.debug("> ? {} @ {}", uri, model);
         dataset.begin(ReadWrite.READ);
         lock = dataset.getLock();
@@ -121,6 +124,11 @@ public class TDBManager implements RDFManager {
                 source = dataset.getNamedModel(model.toString());
             finding = ResourceFactory.createResource(uri.toString());
             buffer.add(source.query(new SimpleSelector(finding, null, (String)null)));
+            namespaces = buffer.listNameSpaces();
+            while(namespaces.hasNext()) {
+                namespace = namespaces.nextNs();
+                buffer.setNsPrefix(source.getNsURIPrefix(namespace), namespace);
+            }
             dataset.commit();
             LOG.debug("< {} statements", buffer.size());
         } finally {
